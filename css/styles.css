@@ -1,0 +1,49 @@
+header {
+  background-color: rgb(86, 43, 129);
+  color: white;
+  font-family: Mukta, sans-serif;
+}
+
+body {
+  background-color: rgb(240, 240, 240);
+  font-family: Lato, sans-serif;
+}
+
+#img {
+  width: 100%;
+}
+
+label {
+  font-weight: bold;
+  margin-top: 50px;
+}
+
+input,
+textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 25px;
+  margin-top: 10px;
+}
+
+input {
+  height: 30px;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border: 2px solid rgb(86, 43, 129);
+}
+
+button {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+  margin-bottom: 25px;
+  padding: 3px 10px;
+  background-color: rgb(86, 43, 129);
+  color: white;
+  border: 1px solid rgb(86, 43, 129);
+  border-radius: 5%;
+}

@@ -1,13 +1,15 @@
 header {
   background-color: rgb(86, 43, 129);
   color: white;
+  font-family: Mukta, sans-serif;
 }
 
 body {
   background-color: rgb(240, 240, 240);
+  font-family: Lato, sans-serif;
 }
 
-.img {
+#img {
   width: 100%;
 }
 

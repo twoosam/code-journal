@@ -8,7 +8,7 @@ let data = {
 };
 
 function serialize() {
-  const dataModelJSON = JSON.stringify(data.entries);
+  const dataModelJSON = JSON.stringify(data);
   localStorage.setItem('javascript-local-storage', dataModelJSON);
 }
 window.addEventListener('beforeunload', serialize);

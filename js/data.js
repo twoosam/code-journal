@@ -12,3 +12,8 @@ function serialize() {
   localStorage.setItem('javascript-local-storage', dataModelJSON);
 }
 window.addEventListener('beforeunload', serialize);
+
+const isStoredJSON = localStorage.getItem('javascript-local-storage');
+if (isStoredJSON !== null) {
+  data = JSON.parse(isStoredJSON);
+}

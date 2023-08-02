@@ -25,14 +25,7 @@ function submitForm(event) {
 $submit.addEventListener('submit', submitForm);
 
 function renderEntry(entry) {
-  const $divDataView = document.createElement('div');
-  $divDataView.setAttribute('data-view', 'entries');
-
-  const $ul = document.createElement('ul');
-  $divDataView.appendChild($ul);
-
   const $li = document.createElement('li');
-  $ul.appendChild($li);
 
   const $divRow = document.createElement('div');
   $divRow.setAttribute('class', 'row');
@@ -65,6 +58,12 @@ function renderEntry(entry) {
   $p.textContent = 'An old and powerful jedi.';
   $divColLower.appendChild($p);
 
-  return $divDataView;
+  return $li;
 }
-renderEntry();
+
+function appendEntry() {
+  for (let i = 0; i < data.entries.length; i++) {
+    document.getElementById('ul').appendChild(renderEntry());
+  }
+}
+document.addEventListener('DOMContentLoaded', appendEntry);

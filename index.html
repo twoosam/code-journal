@@ -36,7 +36,7 @@
       </div>
     </header>
     <main class="container">
-      <div data-view="entry-form">
+      <div data-view="entry-form" class="hidden">
         <form id="form">
           <div class="row">
             <div class="column-full column-half">
@@ -75,13 +75,52 @@
           </div>
           <div class="row">
             <div class="column-full">
-              <button type="submit">Save</button>
+              <button class="button-submit" type="submit">Save</button>
             </div>
           </div>
         </form>
       </div>
-      <div data-view="entries" class="hidden">
-        <ul></ul>
+      <div data-view="entries">
+        <ul>
+          <li>
+            <div class="row">
+              <div class="coulmn-full column-half">
+                <h1>Entries</h1>
+              </div>
+              <div class="column-full column-half">
+                <button class="button-new" type="submit">New</button>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="row">
+              <div class="column-full column-half">
+                <img
+                  class="img-view-entry"
+                  src="https://images.immediate.co.uk/production/volatile/sites/3/2017/12/yoda-the-empire-strikes-back-28a7558.jpg?quality=90&resize=800,534"
+                  alt="yoda" />
+              </div>
+              <div class="column-full column-half">
+                <h2>A newer image</h2>
+                <p>An old and powerful jedi.</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="row">
+              <div class="column-full column-half">
+                <img
+                  class="img-view-entry"
+                  src="https://api.time.com/wp-content/uploads/2015/12/star-wars-episode-iii-revenge-of-the-sith-obi-wan.jpg"
+                  alt="obi" />
+              </div>
+              <div class="column-full column-half">
+                <h2>This is a newer image</h2>
+                <p>A kind and wise jedi.</p>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </main>
     <script src="js/data.js"></script>

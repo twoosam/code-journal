@@ -91,8 +91,14 @@ function viewSwap(string) {
 }
 viewSwap('entry-form');
 
-const $anchor = document.querySelector('.entries-anchor');
-function eventHandler() {
+const $anchorNav = document.querySelector('.entries-anchor');
+function eventHandlerNav() {
   viewSwap('entries');
 }
-$anchor.addEventListener('click', eventHandler);
+$anchorNav.addEventListener('click', eventHandlerNav);
+
+const $anchorNew = document.querySelector('.form-anchor');
+function eventHandlerNew() {
+  viewSwap('entry-form');
+}
+$anchorNew.addEventListener('click', eventHandlerNew);

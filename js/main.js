@@ -21,6 +21,11 @@ function submitForm(event) {
   data.entries.unshift(formObject);
   $img.setAttribute('src', 'images/placeholder-image-square.jpg');
   $submit.reset();
+
+  renderEntry();
+  document.getElementById('ul').appendChild(renderEntry());
+  viewSwap('entries');
+  toggleNoEntries();
 }
 $submit.addEventListener('submit', submitForm);
 
@@ -37,11 +42,7 @@ function renderEntry(entry) {
 
   const $imgView = document.createElement('img');
   $imgView.setAttribute('class', 'img-view-entry');
-  $imgView.setAttribute(
-    'src',
-    'https://images.immediate.co.uk/production/volatile/sites/3/2017/12/yoda-the-empire-strikes-back-28a7558.jpg?quality=90&resize=800,534'
-  );
-  $imgView.setAttribute('alt', 'yoda');
+  $imgView.setAttribute('src', $submit.elements['photo-url'].value);
   $divCol.appendChild($imgView);
 
   const $divColLower = document.createElement('div');
@@ -49,11 +50,11 @@ function renderEntry(entry) {
   $divRow.appendChild($divColLower);
 
   const $h2 = document.createElement('h2');
-  $h2.textContent = 'A newer image';
+  $h2.textContent = $submit.elements.title.value;
   $divColLower.appendChild($h2);
 
   const $p = document.createElement('p');
-  $p.textContent = 'An old and powerful jedi.';
+  $p.textContent = $submit.elements.notes.value;
   $divColLower.appendChild($p);
 
   return $li;

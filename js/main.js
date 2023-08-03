@@ -70,9 +70,9 @@ document.addEventListener('DOMContentLoaded', appendEntry);
 const $noEntries = document.querySelector('.no-entries');
 function toggleNoEntries() {
   if (data.entries.length === 0) {
-    $noEntries.setAttribute('class', '.no-entries');
+    $noEntries.setAttribute('class', 'column-full no-entries');
   } else {
-    $noEntries.remove();
+    $noEntries.setAttribute('class', 'hidden');
   }
 }
 toggleNoEntries();
@@ -81,12 +81,12 @@ const $entryForm = document.querySelector('.entry-form');
 const $entries = document.querySelector('.entries');
 function viewSwap(string) {
   if (string === 'entry-form') {
-    $entryForm.setAttribute('class', '.entry-form');
+    $entryForm.setAttribute('class', 'entry-form');
     $entries.setAttribute('class', 'hidden');
     data.view = 'entry-form';
   } else {
     $entryForm.setAttribute('class', 'hidden');
-    $entries.setAttribute('class', '.entries');
+    $entries.setAttribute('class', 'entries');
     data.view = 'entries';
   }
 }

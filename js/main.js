@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', appendEntry);
 const $noEntries = document.querySelector('.no-entries');
 function toggleNoEntries() {
   if (data.entries.length === 0) {
-    $noEntries.add();
+    $noEntries.setAttribute('class', '.no-entries');
   } else {
     $noEntries.remove();
   }
@@ -89,4 +89,10 @@ function viewSwap(string) {
     data.view = 'entries';
   }
 }
-viewSwap();
+viewSwap('entry-form');
+
+const $anchor = document.querySelector('.entries-anchor');
+function eventHandler() {
+  viewSwap('entries');
+}
+$anchor.addEventListener('click', eventHandler);

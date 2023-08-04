@@ -21,9 +21,7 @@ function submitForm(event) {
   data.entries.unshift(formObject);
   $img.setAttribute('src', 'images/placeholder-image-square.jpg');
   $submit.reset();
-
-  renderEntry();
-  document.getElementById('ul').appendChild(renderEntry());
+  document.getElementById('ul').prepend(renderEntry(formObject));
   viewSwap('entries');
   toggleNoEntries();
 }
@@ -42,7 +40,7 @@ function renderEntry(entry) {
 
   const $imgView = document.createElement('img');
   $imgView.setAttribute('class', 'img-view-entry');
-  $imgView.setAttribute('src', $submit.elements['photo-url'].value);
+  $imgView.setAttribute('src', entry.photoURL);
   $divCol.appendChild($imgView);
 
   const $divColLower = document.createElement('div');
@@ -50,11 +48,11 @@ function renderEntry(entry) {
   $divRow.appendChild($divColLower);
 
   const $h2 = document.createElement('h2');
-  $h2.textContent = $submit.elements.title.value;
+  $h2.textContent = entry.title;
   $divColLower.appendChild($h2);
 
   const $p = document.createElement('p');
-  $p.textContent = $submit.elements.notes.value;
+  $p.textContent = entry.notes;
   $divColLower.appendChild($p);
 
   return $li;
@@ -62,8 +60,10 @@ function renderEntry(entry) {
 
 function appendEntry() {
   for (let i = 0; i < data.entries.length; i++) {
-    document.getElementById('ul').appendChild(renderEntry());
+    document.getElementById('ul').appendChild(renderEntry(data.entries[i]));
   }
+  viewSwap(data.view);
+  toggleNoEntries();
 }
 document.addEventListener('DOMContentLoaded', appendEntry);
 
@@ -75,7 +75,6 @@ function toggleNoEntries() {
     $noEntries.setAttribute('class', 'hidden');
   }
 }
-toggleNoEntries();
 
 const $entryForm = document.querySelector('.entry-form');
 const $entries = document.querySelector('.entries');
@@ -90,7 +89,6 @@ function viewSwap(string) {
     data.view = 'entries';
   }
 }
-viewSwap('entry-form');
 
 const $anchorNav = document.querySelector('.entries-anchor');
 function eventHandlerNav() {

@@ -21,11 +21,12 @@ function submitForm(event) {
   data.entries.unshift(formObject);
   $img.setAttribute('src', 'images/placeholder-image-square.jpg');
   $submit.reset();
-  document.getElementById('ul').prepend(renderEntry(formObject));
+  $ul.prepend(renderEntry(formObject));
   viewSwap('entries');
   toggleNoEntries();
 }
 $submit.addEventListener('submit', submitForm);
+const $ul = document.getElementById('ul');
 
 function renderEntry(entry) {
   const $li = document.createElement('li');
@@ -60,7 +61,7 @@ function renderEntry(entry) {
 
 function appendEntry() {
   for (let i = 0; i < data.entries.length; i++) {
-    document.getElementById('ul').appendChild(renderEntry(data.entries[i]));
+    $ul.appendChild(renderEntry(data.entries[i]));
   }
   viewSwap(data.view);
   toggleNoEntries();
@@ -82,12 +83,11 @@ function viewSwap(string) {
   if (string === 'entry-form') {
     $entryForm.setAttribute('class', 'entry-form');
     $entries.setAttribute('class', 'hidden');
-    data.view = 'entry-form';
   } else {
     $entryForm.setAttribute('class', 'hidden');
     $entries.setAttribute('class', 'entries');
-    data.view = 'entries';
   }
+  data.view = string;
 }
 
 const $anchorNav = document.querySelector('.entries-anchor');

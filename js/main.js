@@ -30,6 +30,7 @@ const $ul = document.getElementById('ul');
 
 function renderEntry(entry) {
   const $li = document.createElement('li');
+  $li.setAttribute('data-entry-id', entry.entryId);
 
   const $divRow = document.createElement('div');
   $divRow.setAttribute('class', 'row');
@@ -48,9 +49,17 @@ function renderEntry(entry) {
   $divColLower.setAttribute('class', 'column-full column-half');
   $divRow.appendChild($divColLower);
 
+  const $divColEdit = document.createElement('div');
+  $divColEdit.setAttribute('class', 'column-edit');
+  $divColLower.appendChild($divColEdit);
+
   const $h2 = document.createElement('h2');
   $h2.textContent = entry.title;
-  $divColLower.appendChild($h2);
+  $divColEdit.appendChild($h2);
+
+  const $imgEdit = document.createElement('i');
+  $imgEdit.setAttribute('class', 'fas fa-pencil');
+  $divColEdit.appendChild($imgEdit);
 
   const $p = document.createElement('p');
   $p.textContent = entry.notes;

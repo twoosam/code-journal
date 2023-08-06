@@ -36,7 +36,7 @@ textarea:focus {
   border: 2px solid rgb(86, 43, 129);
 }
 
-button {
+.button-submit {
   display: block;
   margin-left: auto;
   margin-right: 0;
@@ -46,4 +46,50 @@ button {
   color: white;
   border: 1px solid rgb(86, 43, 129);
   border-radius: 5%;
+}
+
+.img-view-entry {
+  width: 100%;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.entries-anchor {
+  color: white;
+  font-family: Mukta, sans-serif;
+  text-decoration: none;
+  font-size: 20px;
+  margin-left: 1rem;
+}
+
+.form-anchor {
+  color: white;
+  font-family: Mukta, sans-serif;
+  text-decoration: none;
+  border: 1px solid rgb(86, 43, 129);
+  border-radius: 5%;
+  background-color: rgb(86, 43, 129);
+  padding: 5px 0;
+  width: 60px;
+  height: 35px;
+  text-align: center;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.entry-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.no-entries {
+  display: flex;
+  justify-content: center;
 }

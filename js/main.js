@@ -7,23 +7,25 @@ $photoInput.addEventListener('input', updateValue);
 
 const $submit = document.querySelector('#form');
 function submitForm(event) {
-  event.preventDefault();
-  const title = $submit.elements.title.value;
-  const photoURL = $submit.elements['photo-url'].value;
-  const notes = $submit.elements.notes.value;
-  const formObject = {
-    title,
-    photoURL,
-    notes,
-  };
-  formObject.entryId = data.nextEntryId;
-  data.nextEntryId++;
-  data.entries.unshift(formObject);
-  $img.setAttribute('src', 'images/placeholder-image-square.jpg');
-  $submit.reset();
-  $ul.prepend(renderEntry(formObject));
-  viewSwap('entries');
-  toggleNoEntries();
+  if (data.editing === null) {
+    event.preventDefault();
+    const title = $submit.elements.title.value;
+    const photoURL = $submit.elements['photo-url'].value;
+    const notes = $submit.elements.notes.value;
+    const formObject = {
+      title,
+      photoURL,
+      notes,
+    };
+    formObject.entryId = data.nextEntryId;
+    data.nextEntryId++;
+    data.entries.unshift(formObject);
+    $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+    $submit.reset();
+    $ul.prepend(renderEntry(formObject));
+    viewSwap('entries');
+    toggleNoEntries();
+  }
 }
 $submit.addEventListener('submit', submitForm);
 const $ul = document.getElementById('ul');
@@ -117,6 +119,7 @@ function clickEdit(event) {
     viewSwap('entry-form');
     $formTitle.innerHTML = 'Edit Entry';
     const $closest = event.target.closest('li');
+    data.editing = $closest;
     const $entryObject =
       data.entries[
         data.entries.length - $closest.getAttribute('data-entry-id')

@@ -110,3 +110,27 @@ function eventHandlerNew() {
   viewSwap('entry-form');
 }
 $anchorNew.addEventListener('click', eventHandlerNew);
+
+const $ulListener = document.querySelector('#ul');
+function clickEdit(event) {
+  if (event.target.tagName === 'I') {
+    viewSwap('entry-form');
+    $formTitle.innerHTML = 'Edit Entry';
+    const $closest = event.target.closest('li');
+    const $entryObject =
+      data.entries[
+        data.entries.length - $closest.getAttribute('data-entry-id')
+      ];
+    $objectImg.value = $entryObject.photoURL;
+    $objectImg.setAttribute('src', $entryObject.photoURL);
+    $objectTitle.value = $entryObject.title;
+    $objectNotes.value = $entryObject.notes;
+  }
+}
+$ulListener.addEventListener('click', clickEdit);
+
+const $formTitle = document.getElementById('form-title');
+
+const $objectImg = document.querySelector('#img');
+const $objectTitle = document.querySelector('#title');
+const $objectNotes = document.querySelector('#notes');

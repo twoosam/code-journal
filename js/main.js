@@ -7,24 +7,35 @@ $photoInput.addEventListener('input', updateValue);
 
 const $submit = document.querySelector('#form');
 function submitForm(event) {
+  event.preventDefault();
+  const title = $submit.elements.title.value;
+  const photoURL = $submit.elements['photo-url'].value;
+  const notes = $submit.elements.notes.value;
+  const formObject = {
+    title,
+    photoURL,
+    notes,
+  };
+  formObject.entryId = data.nextEntryId;
+  data.nextEntryId++;
   if (data.editing === null) {
-    event.preventDefault();
-    const title = $submit.elements.title.value;
-    const photoURL = $submit.elements['photo-url'].value;
-    const notes = $submit.elements.notes.value;
-    const formObject = {
-      title,
-      photoURL,
-      notes,
-    };
-    formObject.entryId = data.nextEntryId;
-    data.nextEntryId++;
     data.entries.unshift(formObject);
     $img.setAttribute('src', 'images/placeholder-image-square.jpg');
     $submit.reset();
     $ul.prepend(renderEntry(formObject));
     viewSwap('entries');
     toggleNoEntries();
+  } else {
+    formObject.entryId = data.editing.entryId;
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === formObject.entryId) {
+        data.entries[i] = formObject;
+      }
+    }
+    const $originalLi = document.querySelector('li');
+    $originalLi.replaceWith(renderEntry(formObject));
+    $formTitle.innerHTML = 'New Entry';
+    data.editing = null;
   }
 }
 $submit.addEventListener('submit', submitForm);
@@ -124,7 +135,7 @@ function clickEdit(event) {
       data.entries[
         data.entries.length - $closest.getAttribute('data-entry-id')
       ];
-    $objectImg.value = $entryObject.photoURL;
+    $objectURL.value = $entryObject.photoURL;
     $objectImg.setAttribute('src', $entryObject.photoURL);
     $objectTitle.value = $entryObject.title;
     $objectNotes.value = $entryObject.notes;
@@ -137,3 +148,4 @@ const $formTitle = document.getElementById('form-title');
 const $objectImg = document.querySelector('#img');
 const $objectTitle = document.querySelector('#title');
 const $objectNotes = document.querySelector('#notes');
+const $objectURL = document.querySelector('#photo-url');

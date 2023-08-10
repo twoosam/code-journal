@@ -123,6 +123,8 @@ $anchorNav.addEventListener('click', eventHandlerNav);
 const $anchorNew = document.querySelector('.form-anchor');
 function eventHandlerNew() {
   viewSwap('entry-form');
+  $submit.reset();
+  $objectImg.setAttribute('src', 'images/placeholder-image-square.jpg');
 }
 $anchorNew.addEventListener('click', eventHandlerNew);
 

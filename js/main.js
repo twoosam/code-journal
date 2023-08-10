@@ -139,7 +139,6 @@ function clickEdit(event) {
       ) {
         data.editing = data.entries[i];
       }
-
       $objectURL.value = data.editing.photoURL;
       $objectImg.setAttribute('src', data.editing.photoURL);
       $objectTitle.value = data.editing.title;

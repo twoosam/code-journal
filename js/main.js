@@ -16,27 +16,29 @@ function submitForm(event) {
     photoURL,
     notes,
   };
-  formObject.entryId = data.nextEntryId;
-  data.nextEntryId++;
   if (data.editing === null) {
+    formObject.entryId = data.nextEntryId;
+    data.nextEntryId++;
     data.entries.unshift(formObject);
-    $img.setAttribute('src', 'images/placeholder-image-square.jpg');
-    $submit.reset();
     $ul.prepend(renderEntry(formObject));
-    viewSwap('entries');
     toggleNoEntries();
   } else {
     formObject.entryId = data.editing.entryId;
     for (let i = 0; i < data.entries.length; i++) {
-      if (data.entries[i].entryId === formObject.entryId) {
+      if (formObject.entryId === data.entries[i].entryId) {
         data.entries[i] = formObject;
       }
     }
-    const $originalLi = document.querySelector('li');
+    const $originalLi = document.querySelector(
+      `li[data-entry-id="${formObject.entryId}"]`
+    );
     $originalLi.replaceWith(renderEntry(formObject));
-    $formTitle.innerHTML = 'New Entry';
+    $formTitle.textContent = 'New Entry';
     data.editing = null;
   }
+  $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+  viewSwap('entries');
+  $submit.reset();
 }
 $submit.addEventListener('submit', submitForm);
 const $ul = document.getElementById('ul');
@@ -128,17 +130,21 @@ const $ulListener = document.querySelector('#ul');
 function clickEdit(event) {
   if (event.target.tagName === 'I') {
     viewSwap('entry-form');
-    $formTitle.innerHTML = 'Edit Entry';
+    $formTitle.textContent = 'Edit Entry';
     const $closest = event.target.closest('li');
-    data.editing = $closest;
-    const $entryObject =
-      data.entries[
-        data.entries.length - $closest.getAttribute('data-entry-id')
-      ];
-    $objectURL.value = $entryObject.photoURL;
-    $objectImg.setAttribute('src', $entryObject.photoURL);
-    $objectTitle.value = $entryObject.title;
-    $objectNotes.value = $entryObject.notes;
+    for (let i = 0; i < data.entries.length; i++) {
+      if (
+        data.entries[i].entryId ===
+        Number($closest.getAttribute('data-entry-id'))
+      ) {
+        data.editing = data.entries[i];
+      }
+
+      $objectURL.value = data.editing.photoURL;
+      $objectImg.setAttribute('src', data.editing.photoURL);
+      $objectTitle.value = data.editing.title;
+      $objectNotes.value = data.editing.notes;
+    }
   }
 }
 $ulListener.addEventListener('click', clickEdit);

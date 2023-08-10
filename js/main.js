@@ -16,20 +16,36 @@ function submitForm(event) {
     photoURL,
     notes,
   };
-  formObject.entryId = data.nextEntryId;
-  data.nextEntryId++;
-  data.entries.unshift(formObject);
+  if (data.editing === null) {
+    formObject.entryId = data.nextEntryId;
+    data.nextEntryId++;
+    data.entries.unshift(formObject);
+    $ul.prepend(renderEntry(formObject));
+    toggleNoEntries();
+  } else {
+    formObject.entryId = data.editing.entryId;
+    for (let i = 0; i < data.entries.length; i++) {
+      if (formObject.entryId === data.entries[i].entryId) {
+        data.entries[i] = formObject;
+      }
+    }
+    const $originalLi = document.querySelector(
+      `li[data-entry-id="${formObject.entryId}"]`
+    );
+    $originalLi.replaceWith(renderEntry(formObject));
+    $formTitle.textContent = 'New Entry';
+    data.editing = null;
+  }
   $img.setAttribute('src', 'images/placeholder-image-square.jpg');
-  $submit.reset();
-  $ul.prepend(renderEntry(formObject));
   viewSwap('entries');
-  toggleNoEntries();
+  $submit.reset();
 }
 $submit.addEventListener('submit', submitForm);
 const $ul = document.getElementById('ul');
 
 function renderEntry(entry) {
   const $li = document.createElement('li');
+  $li.setAttribute('data-entry-id', entry.entryId);
 
   const $divRow = document.createElement('div');
   $divRow.setAttribute('class', 'row');
@@ -48,9 +64,17 @@ function renderEntry(entry) {
   $divColLower.setAttribute('class', 'column-full column-half');
   $divRow.appendChild($divColLower);
 
+  const $divColEdit = document.createElement('div');
+  $divColEdit.setAttribute('class', 'column-edit');
+  $divColLower.appendChild($divColEdit);
+
   const $h2 = document.createElement('h2');
   $h2.textContent = entry.title;
-  $divColLower.appendChild($h2);
+  $divColEdit.appendChild($h2);
+
+  const $imgEdit = document.createElement('i');
+  $imgEdit.setAttribute('class', 'fas fa-pencil');
+  $divColEdit.appendChild($imgEdit);
 
   const $p = document.createElement('p');
   $p.textContent = entry.notes;
@@ -99,5 +123,36 @@ $anchorNav.addEventListener('click', eventHandlerNav);
 const $anchorNew = document.querySelector('.form-anchor');
 function eventHandlerNew() {
   viewSwap('entry-form');
+  $submit.reset();
+  $objectImg.setAttribute('src', 'images/placeholder-image-square.jpg');
 }
 $anchorNew.addEventListener('click', eventHandlerNew);
+
+const $ulListener = document.querySelector('#ul');
+function clickEdit(event) {
+  if (event.target.tagName === 'I') {
+    viewSwap('entry-form');
+    $formTitle.textContent = 'Edit Entry';
+    const $closest = event.target.closest('li');
+    for (let i = 0; i < data.entries.length; i++) {
+      if (
+        data.entries[i].entryId ===
+        Number($closest.getAttribute('data-entry-id'))
+      ) {
+        data.editing = data.entries[i];
+      }
+      $objectURL.value = data.editing.photoURL;
+      $objectImg.setAttribute('src', data.editing.photoURL);
+      $objectTitle.value = data.editing.title;
+      $objectNotes.value = data.editing.notes;
+    }
+  }
+}
+$ulListener.addEventListener('click', clickEdit);
+
+const $formTitle = document.getElementById('form-title');
+
+const $objectImg = document.querySelector('#img');
+const $objectTitle = document.querySelector('#title');
+const $objectNotes = document.querySelector('#notes');
+const $objectURL = document.querySelector('#photo-url');

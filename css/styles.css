@@ -37,10 +37,8 @@ textarea:focus {
 }
 
 .button-submit {
-  display: block;
   margin-left: auto;
   margin-right: 0;
-  margin-bottom: 25px;
   padding: 3px 10px;
   background-color: rgb(86, 43, 129);
   color: white;
@@ -103,4 +101,17 @@ ul {
 
 p {
   margin-top: 0;
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-delete {
+  border: none;
+  color: red;
+  text-decoration: underline;
+  padding-left: 0;
 }

@@ -124,9 +124,12 @@ const $anchorNew = document.querySelector('.form-anchor');
 function eventHandlerNew() {
   viewSwap('entry-form');
   $submit.reset();
+  $formTitle.textContent = 'New Entry';
   $objectImg.setAttribute('src', 'images/placeholder-image-square.jpg');
+  $buttonDelete.setAttribute('class', 'hidden');
 }
 $anchorNew.addEventListener('click', eventHandlerNew);
+const $buttonDelete = document.querySelector('.button-delete');
 
 const $ulListener = document.querySelector('#ul');
 function clickEdit(event) {
@@ -145,6 +148,8 @@ function clickEdit(event) {
       $objectImg.setAttribute('src', data.editing.photoURL);
       $objectTitle.value = data.editing.title;
       $objectNotes.value = data.editing.notes;
+
+      $buttonDelete.setAttribute('class', 'button-delete');
     }
   }
 }

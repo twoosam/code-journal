@@ -161,3 +161,15 @@ const $objectImg = document.querySelector('#img');
 const $objectTitle = document.querySelector('#title');
 const $objectNotes = document.querySelector('#notes');
 const $objectURL = document.querySelector('#photo-url');
+
+const $modal = document.querySelector('.modal');
+function openModal() {
+  $modal.style.display = 'block';
+}
+$buttonDelete.addEventListener('click', openModal);
+
+function closeModal() {
+  $modal.style.display = 'none';
+}
+const $buttonCancel = document.querySelector('.button-cancel');
+$buttonCancel.addEventListener('click', closeModal);

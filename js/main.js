@@ -179,7 +179,7 @@ function clickConfirm() {
   for (let i = 0; i < data.entries.length; i++) {
     if (data.entries[i].entryId === editingEntryId) {
       data.entries.splice(i, 1);
-      $ul.remove($ul[i]);
+      $ul.children[i].remove();
     }
   }
   toggleNoEntries();

@@ -173,3 +173,19 @@ function closeModal() {
 }
 const $buttonCancel = document.querySelector('.button-cancel');
 $buttonCancel.addEventListener('click', closeModal);
+
+function clickConfirm() {
+  const editingEntryId = data.editing.entryId;
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === editingEntryId) {
+      data.entries.splice(i, 1);
+      $ul.remove($ul[i]);
+    }
+  }
+  toggleNoEntries();
+  $modal.style.display = 'none';
+  viewSwap('entries');
+  data.editing = null;
+}
+const $buttonConfirm = document.querySelector('.button-confirm');
+$buttonConfirm.addEventListener('click', clickConfirm);

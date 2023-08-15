@@ -124,9 +124,12 @@ const $anchorNew = document.querySelector('.form-anchor');
 function eventHandlerNew() {
   viewSwap('entry-form');
   $submit.reset();
+  $formTitle.textContent = 'New Entry';
   $objectImg.setAttribute('src', 'images/placeholder-image-square.jpg');
+  $buttonDelete.setAttribute('class', 'hidden');
 }
 $anchorNew.addEventListener('click', eventHandlerNew);
+const $buttonDelete = document.querySelector('.button-delete');
 
 const $ulListener = document.querySelector('#ul');
 function clickEdit(event) {
@@ -145,6 +148,8 @@ function clickEdit(event) {
       $objectImg.setAttribute('src', data.editing.photoURL);
       $objectTitle.value = data.editing.title;
       $objectNotes.value = data.editing.notes;
+
+      $buttonDelete.setAttribute('class', 'button-delete');
     }
   }
 }
@@ -156,3 +161,31 @@ const $objectImg = document.querySelector('#img');
 const $objectTitle = document.querySelector('#title');
 const $objectNotes = document.querySelector('#notes');
 const $objectURL = document.querySelector('#photo-url');
+
+const $modal = document.querySelector('.modal');
+function openModal() {
+  $modal.style.display = 'block';
+}
+$buttonDelete.addEventListener('click', openModal);
+
+function closeModal() {
+  $modal.style.display = 'none';
+}
+const $buttonCancel = document.querySelector('.button-cancel');
+$buttonCancel.addEventListener('click', closeModal);
+
+function clickConfirm() {
+  const editingEntryId = data.editing.entryId;
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === editingEntryId) {
+      data.entries.splice(i, 1);
+      $ul.children[i].remove();
+    }
+  }
+  toggleNoEntries();
+  $modal.style.display = 'none';
+  viewSwap('entries');
+  data.editing = null;
+}
+const $buttonConfirm = document.querySelector('.button-confirm');
+$buttonConfirm.addEventListener('click', clickConfirm);
